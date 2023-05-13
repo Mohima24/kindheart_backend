@@ -1,22 +1,22 @@
-const express = require("express")
-const {connection}= require("./conifg/db")
-const {userRouter}=require("./Routers/user.router")
-const {adminRouter} = require("./Routers/admin.router")
-const {productRouter} = require("./Routers/product.router")
-const {authentication} =require("./middleware/authenticate")
-let cors= require("cors")
-require("dotenv").config()
+const express = require("express");
+const {connection}= require("./conifg/db");
+const {userRouter}=require("./routers/user.router");
+const {productRouter} = require("./routers/product.router");
+const {orderRouter} = require("./routers/order.router")
+let cors= require("cors");
+require("dotenv").config();
 
-const app = express()
-app.use(cors())
-app.use(express.json())
-app.use("/users",userRouter)
-app.use("/admins",adminRouter)
-app.use(authentication)
-app.use("/products",productRouter)
+const app = express();
+app.use(cors());
+app.use(express.json());
+app.use("/users",userRouter);
+app.use("/products",productRouter);
+app.use("/orders",orderRouter);
 
 app.get("/",(req,res)=>{
-    res.send("Home page")
+
+    res.send("Home page");
+
 })
 
 app.listen(process.env.port,async()=>{
@@ -28,3 +28,4 @@ app.listen(process.env.port,async()=>{
         console.log(err)
     }
 })
+

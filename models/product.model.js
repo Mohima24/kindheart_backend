@@ -5,8 +5,7 @@ const productSchema= mongoose.Schema({
     rating:Number,
     price:Number,
     material:String,
-    adminID:String,
-    adminName:String,
+    sellerID:String,
     img:String,
     ptype:String
 },{
@@ -16,5 +15,7 @@ const productSchema= mongoose.Schema({
 const ProductModel= mongoose.model("products",productSchema)
 
 module.exports={
+
     ProductModel
+    
 }

@@ -3,25 +3,21 @@ require("dotenv").config()
 
 const authentication=(req,res,next)=>{
     let token = req.headers.authorization;
-    if(req.method == "POST" || req.method == "PATCH" || req.method == "PUT" || req.method == "DELETE"){
-        if(token){
-            const decode= jwt.verify(token,process.env.adminkey)
-            if(decode){
-                const adminID = decode.adminID;
-                req.body.adminID=adminID;
-                req.body.adminName = decode.adminName
-                next()
-            }else{
-                res.send("You are not authorized")
-            }
-        }else{
-            res.send("You are not authorized")
-        }
-    }else{
-        next()
+    if(!token){
+        res.send({"msg":"please log in"})
+        return
     }
-
-    
+    const decode= jwt.verify(token,process.env.userkey);
+    if(!decode){
+        res.send({"msg":"please log in"})
+        return
+    }else{
+        const userID = decode.userID;
+        const userRole = decode.userRole;
+        req.body.userID=userID;
+        req.body.userRole = userRole;
+        next() 
+    }  
 }
 
 module.exports={
