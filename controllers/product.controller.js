@@ -12,7 +12,7 @@ exports.limitedData = async(req,res)=>{
 exports.findbyIDProducts = async(req,res)=>{
     let ID = req.params.id
     let data = await ProductModel.findOne({_id:ID})
-    res.send("hello")
+    res.send(data)
 }
 
 exports.queryData = async(req,res)=>{
