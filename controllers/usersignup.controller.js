@@ -150,12 +150,10 @@ async function sendOTPVErificationNumber({ _id, mobile }, res) {
           })
     });
   } catch (err) {
-    res.json({
+    res.status(503).json({
       status: "FAILED",
       message: err.message
     })
-    console.log("while sending mail")
-    console.log(err)
   }
 }
 
