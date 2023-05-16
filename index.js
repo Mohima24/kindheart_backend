@@ -8,7 +8,7 @@ require("dotenv").config();
 
 const app = express();
 app.use(cors({
-    origin: "https://acelegalservices.vercel.app",
+    origin: "https://busy-gold-scarab-vest.cyclic.app",
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     allowedHeaders: ['Content-Type', "Authorization", "Access-Control-Allow-Credentials", "Access-Control-Allow-Origin"],
     credentials: true
