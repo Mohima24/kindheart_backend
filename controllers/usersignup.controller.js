@@ -37,7 +37,7 @@ exports.signupuserMobile =  async (req, res) => {
             }
             bcrypt.hash(password, 7 ,(err, hash)=> {
                 if(err){
-                    res.send("bcrypt err")
+                    res.status(500).send("bcrypt err")
                 }else{
                     const user = new Usermodel({
                       firstName, lastName, mobile, password:hash ,role
