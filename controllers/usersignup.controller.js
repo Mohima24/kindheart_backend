@@ -161,7 +161,7 @@ async function sendOTPVErificationNumber({ _id, mobile }, res) {
 exports.resendOtpmobile =  async(req,res)=>{
     try{
       let {mobile,userID}=req.body
-      if(!userID || !mobile){
+      if(userID=="" || !mobile==""){
         throw Error("Empty user details")
       }else{
         const finduser = await Usermodel.find({_id:userID,mobile})
@@ -189,7 +189,7 @@ exports.resendOTPemail = async(req,res)=>{
       }else{
 
         const finduser = await Usermodel.find({ email , _id:userID})
-        // res.send(finduser)
+
         if(finduser.length>0){
           await UserOTPVerification.deleteMany({userID})
           sendOTPVErificationEmail({_id:userID,email},res)
