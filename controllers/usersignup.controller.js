@@ -1,6 +1,7 @@
 
 const { Usermodel } = require("../models/users.model")
 const { UserOTPVerification } = require("../models/otp.model")
+
 const bcrypt = require("bcrypt")
 const nodemailer= require("nodemailer");
 require("dotenv").config()
@@ -183,7 +184,7 @@ exports.resendOTPemail = async(req,res)=>{
   let {userID,email}=req.body;
   console.log(userID,email)
     try{
-      if(userID==false|| email==false){
+      if(userID==""|| email==""){
         throw Error("Empty user details")
       }else{
 
