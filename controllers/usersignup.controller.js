@@ -37,7 +37,7 @@ exports.signupuserMobile =  async (req, res) => {
             }
             bcrypt.hash(password, 7 ,(err, hash)=> {
                 if(err){
-                    res.status(500).send("bcrypt err")
+                    res.status(500).send({status:"FAILED","messege":"bcrypt err"})
                 }else{
                     const user = new Usermodel({
                       firstName, lastName, mobile, password:hash ,role
@@ -64,7 +64,7 @@ exports.signupemail = async (req, res) => {
         }else{
             const finduser = await Usermodel.find({email})
             if(finduser.length>0){
-                res.status(501).send("already logged in")
+                res.status(501).send({status:"FAILED",message:"Already Logged in"})
                 return 
             }
             bcrypt.hash(password, 7 ,(err, hash)=> {
@@ -114,7 +114,7 @@ async function  sendOTPVErificationEmail({_id,email},res){
       });
   
     }catch(err){
-        res.status(400).json({
+        res.json({
             status:"FAILED",
             message:err.message
         })
@@ -150,7 +150,7 @@ async function sendOTPVErificationNumber({ _id, mobile }, res) {
           })
     });
   } catch (err) {
-    res.status(503).json({
+    res.json({
       status: "FAILED",
       message: err.message
     })
@@ -159,18 +159,18 @@ async function sendOTPVErificationNumber({ _id, mobile }, res) {
 
 exports.resendOtpmobile =  async(req,res)=>{
     try{
-      let {mobile}=req.body
-      if(!mobile){
+      let {mobile,userID}=req.body
+      if(!userID || !mobile){
         throw Error("Empty user details")
       }else{
-        const finduser = await Usermodel.find({ mobile})
-        const userID = finduser[0]._id
+        const finduser = await Usermodel.findById({_id:userID,mobile})
+        const userID = finduser[0]._id;
         if(finduser.length>0){
           await UserOTPVerification.deleteMany({userID})
           sendOTPVErificationNumber({ _id:userID, mobile }, res)
         }else{
-          throw Error("please give correct details")
-        }
+          res.send(err)
+        } 
       }
     }
     catch(err){
@@ -180,14 +180,15 @@ exports.resendOtpmobile =  async(req,res)=>{
 
 
 exports.resendOTPemail = async(req,res)=>{
-
+  let {userID,email}=req.body;
+  console.log(userID,email)
     try{
-      let {userID,email}=req.body
       if(!userID || !email){
         throw Error("Empty user details")
       }else{
         const finduser = await Usermodel.find({ email , _id:userID})
-        if(finduser>0){
+        
+        if(finduser.length>0){
           await UserOTPVerification.deleteMany({userID})
           sendOTPVErificationEmail({_id:userID,email},res)
         }else{
