@@ -183,18 +183,18 @@ exports.resendOTPemail = async(req,res)=>{
   let {userID,email}=req.body;
   console.log(userID,email)
     try{
-      if(!userID || !email){
+      if(!userID|| !email){
         throw Error("Empty user details")
       }else{
-        
-        const finduser = await Usermodel.find({ email , _id:userID},res)
 
-        if(finduser.length>0){
-          await UserOTPVerification.deleteMany({userID})
-          sendOTPVErificationEmail({_id:userID,email},res)
-        }else{
-          throw Error("please give correct details")
-        }
+        const finduser = await Usermodel.find({ email , _id:userID},res)
+        res.send(finduser)
+        // if(finduser.length>0){
+        //   await UserOTPVerification.deleteMany({userID})
+        //   sendOTPVErificationEmail({_id:userID,email},res)
+        // }else{
+        //   throw Error("please give correct details")
+        // }
   
       }
     }
