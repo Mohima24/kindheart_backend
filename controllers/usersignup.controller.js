@@ -189,13 +189,13 @@ exports.resendOTPemail = async(req,res)=>{
       }else{
 
         const finduser = await Usermodel.find({ email , _id:userID})
-        res.send(finduser)
-        // if(finduser.length>0){
-        //   await UserOTPVerification.deleteMany({userID})
-        //   sendOTPVErificationEmail({_id:userID,email},res)
-        // }else{
-        //   throw Error("please give correct details")
-        // }
+        // res.send(finduser)
+        if(finduser.length>0){
+          await UserOTPVerification.deleteMany({userID})
+          sendOTPVErificationEmail({_id:userID,email},res)
+        }else{
+          throw Error("please give correct details")
+        }
   
       }
     }
