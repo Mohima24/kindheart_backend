@@ -188,7 +188,7 @@ exports.resendOTPemail = async(req,res)=>{
         throw Error("Empty user details")
       }else{
 
-        const finduser = await Usermodel.find({ email , _id:userID},res)
+        const finduser = await Usermodel.find({ email , _id:userID})
         res.send(finduser)
         // if(finduser.length>0){
         //   await UserOTPVerification.deleteMany({userID})
