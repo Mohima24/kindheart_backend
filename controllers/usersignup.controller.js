@@ -183,7 +183,7 @@ exports.resendOTPemail = async(req,res)=>{
   let {userID,email}=req.body;
   console.log(userID,email)
     try{
-      if(!userID|| !email){
+      if(userID==false|| email==false){
         throw Error("Empty user details")
       }else{
 
