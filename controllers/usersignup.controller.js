@@ -164,7 +164,7 @@ exports.resendOtpmobile =  async(req,res)=>{
       if(!userID || !mobile){
         throw Error("Empty user details")
       }else{
-        const finduser = await Usermodel.findById({_id:userID,mobile})
+        const finduser = await Usermodel.find({_id:userID,mobile})
         const userID = finduser[0]._id;
         if(finduser.length>0){
           await UserOTPVerification.deleteMany({userID})
