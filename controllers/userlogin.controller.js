@@ -28,7 +28,7 @@ exports.emaillogin = async (req, res) => {
               // res.cookie("normal_token",access_token,{httpOnly:true,maxAge:60*1000})
   
               // res.cookie("refresh_token",refresh_token,{httpOnly:true,maxAge:60000*7})
-              res.send({"message":"login successfully",access_token,refresh_token})
+              res.send({"message":"login successfully",access_token,refresh_token,findeuser})
             }else{
 
               res.status(403).send({"msg":"error while decrypt"})
