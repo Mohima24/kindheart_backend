@@ -127,11 +127,12 @@ exports.postOrder = async(req,res)=>{
     const user = req.body.userID;
     const userdetail = await Usermodel.findById({_id:user});
     const orderItems = req.body.orderItems;
-    
+    const totalBill = req.body.totalBill;
+
     try{
         if(userdetail.verify==true){
 
-            const payload = await new Order({user,orderItems});
+            const payload = await new Order({user,orderItems,totalBill});
             await payload.save();
             res.send({status:"OK","msg":"order has placed"})
 

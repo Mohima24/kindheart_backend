@@ -4,7 +4,7 @@ const authorized = (role)=>{
         if(role.includes(bodyrole)){
             next();
         }else{
-            res.send({"msg":"You are not authorised"})
+            res.send({status:"FAILED","msg":"You are not authorised"})
         }
     }
 }

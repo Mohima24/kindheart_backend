@@ -4,12 +4,12 @@ require("dotenv").config()
 const authentication=(req,res,next)=>{
     let token = req.headers.authorization;
     if(!token){
-        res.send({"msg":"please log in"})
+        res.send({status:"FAILED","msg":"please log in"})
         return
     }
     const decode= jwt.verify(token,process.env.userkey);
     if(!decode){
-        res.send({"msg":"please log in"})
+        res.send({status:"FAILED","msg":"please log in"})
         return
     }else{
         const userID = decode.userID;

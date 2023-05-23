@@ -13,8 +13,9 @@ const orderSchema = new mongoose.Schema(
               ref: "products",
             },
             quantity: {type :Number, required:true}
-          }  
+          }
     ],
+    totalBill:Number
   },
   { 
     versionKey:false,
