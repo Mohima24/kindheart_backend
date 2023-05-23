@@ -133,11 +133,11 @@ exports.postOrder = async(req,res)=>{
 
             const payload = await new Order({user,orderItems});
             await payload.save();
-            res.send({"msg":"order has placed"})
+            res.send({status:"OK","msg":"order has placed"})
 
         }else{
 
-            res.send({msg:"You are not register"})
+            res.send({status:"FAILED",msg:"You are not register"})
 
         }
     }catch(err){
