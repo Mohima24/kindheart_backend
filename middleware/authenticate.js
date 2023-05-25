@@ -3,6 +3,7 @@ require("dotenv").config()
 
 const authentication=(req,res,next)=>{
     let token = req.headers.authorization;
+    console.log(token)
     if(!token){
         res.send({status:"FAILED","msg":"please log in"})
         return
